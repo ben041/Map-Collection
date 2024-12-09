@@ -1,0 +1,35 @@
+{
+  "version": 8,
+  "sprite": "../sprites/sprite",
+  "glyphs": "../fonts/{fontstack}/{range}.pbf",
+  "sources": {
+    "Median_income_by_commune_france_vector_tile": {
+      "type": "vector",
+      "bounds": [-61.8098, -21.3891, 55.8366, 51.089],
+      "minzoom": 0,
+      "maxzoom": 23,
+      "scheme": "xyz",
+      "url": "../../"
+    }
+  },
+  "layers": [
+    {
+      "id": "Median_income_by_commune_france_polygons/1",
+      "type": "fill",
+      "source": "Median_income_by_commune_france_vector_tile",
+      "source-layer": "Median_income_by_commune_france_polygons",
+      "layout": {},
+      "paint": {
+        "fill-color": "rgba(255,165,0,0.75)",
+        "fill-opacity": {
+          "property": "opacity",
+          "default": 1,
+          "stops": [
+            [17717, 0.3],
+            [23563, 1]
+          ]
+        }
+      }
+    }
+  ]
+}

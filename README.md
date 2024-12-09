@@ -1,11 +1,7 @@
-Here’s a sample GitHub `README.md` for your Map-Collection repository:
-
-```markdown
 # Map-Collection
 
 A comprehensive collection of map-related tools, examples, and features built using Leaflet, Mapbox, Google Maps, and other mapping libraries and APIs. This repository is ideal for developers looking to implement various mapping functionalities, such as geolocation, heatmaps, routing, and vector tiles, in their projects.
 
----
 
 ## 📂 Repository Structure
 

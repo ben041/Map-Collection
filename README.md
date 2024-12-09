@@ -89,7 +89,6 @@ This repository is licensed under the [MIT License](LICENSE).
 ## 📬 Contact
 For any inquiries or suggestions, reach out to:
 - **Author**: [ben041](https://github.com/ben041)
-- **Email**: [your_email@example.com](mailto:your_email@example.com)
 
 ---
 

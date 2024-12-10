@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet Search by Name or Lat/Lng</title>
+
+    <!-- leaflet css  -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+
+        .search {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .search input {
+            width: 200px;
+            padding: 5px;
+            margin-right: 5px;
+        }
+
+        .search button {
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <div class="leaflet-control search">
+        <input type="text" id="search-input" placeholder="City/Country or Lat,Lng">
+        <button id="search-btn">Search</button>
+    </div>
+
+    <!-- leaflet js  -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <!-- jquery  -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script>
+        // Map initialization 
+        var map = L.map('map').setView([28.3949, 84.1240], 8);
+
+        // OSM layer
+        var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        });
+        osm.addTo(map);
+
+        // Marker initialization
+        var marker = L.marker([28.3949, 84.1240]).addTo(map);
+
+        // Search button click event
+        $('#search-btn').click(function () {
+            var input = $('#search-input').val().trim();
+
+            // Check if input contains a comma, assuming Lat,Lng format
+            if (input.includes(',')) {
+                var latlngArr = input.split(',');
+                var lat = parseFloat(latlngArr[0]);
+                var lng = parseFloat(latlngArr[1]);
+                
+                if (!isNaN(lat) && !isNaN(lng)) {
+                    map.setView([lat, lng], 8);
+                    marker.setLatLng([lat, lng]);
+                } else {
+                    alert('Invalid latitude and longitude values.');
+                }
+            } else {
+                // If input is a city or country name, use Nominatim API to geocode
+                $.getJSON(`https://nominatim.openstreetmap.org/search?format=json&q=${input}`, function (data) {
+                    if (data && data.length > 0) {
+                        var lat = parseFloat(data[0].lat);
+                        var lng = parseFloat(data[0].lon);
+                        map.setView([lat, lng], 8);
+                        marker.setLatLng([lat, lng]);
+                    } else {
+                        alert('Location not found. Please try a different name.');
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+
+</html>
